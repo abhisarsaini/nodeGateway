@@ -1,0 +1,25 @@
+{
+  "name": "nodeAPIGateway",
+  "version": "0.1.0",
+  "description": "nodeAPIGateway",
+  "main": "node-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+  },
+  "dependencies": {
+    "loopback": "1.4.x",
+    "http-proxy": "~1.0.1",
+    "qs": "~0.6.6",
+    "supertest": "~0.9.0",
+    "superagent": "~0.16.0"
+  },
+  "repository": "",
+  "keywords": [
+    "node.js",
+    "eclipse",
+    "nodeclipse"
+  ],
+  "author": "",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
