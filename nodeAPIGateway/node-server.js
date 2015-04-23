@@ -1,25 +1,31 @@
 var http = require('http');
-var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer({});
 var url = require("url");
-http.createServer(function handler(req, res) {
+var loopback = require('loopback');
+var app = module.exports = loopback();
+var boot = require('loopback-boot');
+var proxy = require('./middleware/proxy');
+var proxyOptions = require('./middleware/proxy/config.json');
+var app = module.exports = loopback();
 
-	var pathname = url.parse(req.url).pathname;
-	if(pathname == "/upload"){
-		proxy.web(req, res,{target: 'http://127.0.0.1:8081'});
-		console.log('After calling new server, inside proxy.');
-	}
-	else{
-		res.end('Hello from proxy server\n');
-	}
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
+app.listen(3000);
+app.use(proxy(proxyOptions));
+
+console.log('Server running at http://127.0.0.1:3000/');
+
+http.createServer(function(req, res) {
+	console.log('Inside index node.');
+	setTimeout(function() {
+	    res.end("inside index node.");
+	}, 3);
+	
+	}).listen(3001);
 
 
 http.createServer(function(req, res) {
-	console.log('Inside new node.');
-	setTimeout(function() {
-	    console.log('Waiting inside new node..');
-	}, 3000);
-	res.end("Request received on 8081");
-	}).listen(8081);
+	console.log('Inside api node.');
+	res.end("inside api node.");
+	//res.end("Request received on 8082");
+	
+	
+	}).listen(3002);
+

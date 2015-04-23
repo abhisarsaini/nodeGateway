@@ -1,0 +1,6 @@
+{
+  "rules": [
+    "^/api/(.*)$ http://localhost:3002/api/$1 [P]",
+    "^/index/(.*)$ http://localhost:3001/index/$1 [P]"
+  ]
+}
