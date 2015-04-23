@@ -6,9 +6,12 @@ var boot = require('loopback-boot');
 var proxy = require('./middleware/proxy');
 var proxyOptions = require('./middleware/proxy/config.json');
 var app = module.exports = loopback();
+var rateLimiting = require('./middleware/rate-limiting');
 
 app.listen(3000);
+app.use(rateLimiting({limit: 3, interval: 60000}));
 app.use(proxy(proxyOptions));
+
 
 console.log('Server running at http://127.0.0.1:3000/');
 
