@@ -5,15 +5,17 @@ var app = module.exports = loopback();
 var boot = require('loopback-boot');
 var proxy = require('./middleware/proxy');
 var proxyOptions = require('./middleware/proxy/config.json');
+var rateLimitingOptions = require('./middleware/rate-limiting/config.json');
 var app = module.exports = loopback();
 var rateLimiting = require('./middleware/rate-limiting');
 
 app.listen(3000);
 
-// Key Verification
+// Key Verification and quota
+app.use(rateLimiting(rateLimitingOptions.quotaOptions));
 
-app.use(rateLimiting({type :'quota', limit: 10, interval: 20000}));
-app.use(rateLimiting({type :'spike-arrest', limit: 3, interval: 3000}));
+// Spike Arrest
+app.use(rateLimiting(rateLimitingOptions.spikeOptions));
 
 app.use(proxy(proxyOptions));
 
