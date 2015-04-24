@@ -3,7 +3,7 @@
 	{
 		"type": "quota",
 		"limit": 10,
-		"interval": 60000
+		"interval": 6000000
 	},
 
 	"spikeOptions": 

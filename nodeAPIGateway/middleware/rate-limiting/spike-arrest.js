@@ -16,7 +16,7 @@ module.exports = function(options) {
   return function spikeArrestLimiting(req, res, next) {
 
     var limiter;
-    var key = (options.getKey || getKey)(req);
+    var key = "SPIKE_ARREST";
     if (key) {
       limiter = limiters[key];
       if (!limiter) {
@@ -44,17 +44,3 @@ module.exports = function(options) {
     next();
   };
 };
-
-/**
- * Build the key for rate limiting from the request
- * @param {Request} req The request object
- * @returns {string} The rate limiting key
- */
-function getKey(req) {
-  var clientId = '123';
- // var clientApp = req.authInfo && req.authInfo.app;
- // if (clientApp) {
-  //  clientId = clientApp.id;
-  //}
-  return 'client:' + clientId;
-}
