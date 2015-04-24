@@ -9,9 +9,13 @@ var app = module.exports = loopback();
 var rateLimiting = require('./middleware/rate-limiting');
 
 app.listen(3000);
-app.use(rateLimiting({limit: 3, interval: 60000}));
-app.use(proxy(proxyOptions));
 
+// Key Verification
+
+app.use(rateLimiting({type :'quota', limit: 10, interval: 20000}));
+app.use(rateLimiting({type :'spike-arrest', limit: 3, interval: 3000}));
+
+app.use(proxy(proxyOptions));
 
 console.log('Server running at http://127.0.0.1:3000/');
 
@@ -25,7 +29,7 @@ http.createServer(function(req, res) {
 
 
 http.createServer(function(req, res) {
-	console.log('Inside api node.');
+	console.log('-----------------------------Inside api node.');
 	res.end("inside api node.");
 	//res.end("Request received on 8082");
 	

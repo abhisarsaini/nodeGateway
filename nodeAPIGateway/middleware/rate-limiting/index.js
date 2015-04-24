@@ -1,12 +1,12 @@
-var metricsLimiter = require('./metrics-limiter');
-var tokenBucketLimiter = require('./token-bucket');
+var quotaLimiter = require('./quota');
+var spikeLimiter = require('./spike-arrest');
 
 module.exports = function(options) {
   options = options || {};
   console.log(options);
-  if (options.type === 'metrics') {
-    return metricsLimiter(options);
+  if (options.type === 'quota') {
+    return quotaLimiter(options);
   } else {
-    return tokenBucketLimiter(options);
+    return spikeLimiter(options);
   }
 };
