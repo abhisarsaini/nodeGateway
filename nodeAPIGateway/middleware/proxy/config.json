@@ -1,6 +1,7 @@
 {
   "rules": [
-    "^/api/(.*)$ http://localhost:3002/api/$1 [P]",
-    "^/index/(.*)$ http://localhost:3001/index/$1 [P]"
+    "^/reviews-api/api/service/reviews/configurations/defaults(.*)$ http://54.174.93.88:11160/reviews-api/api/service/reviews/configurations/defaults [P]",
+    "^/reviews-api/api/service/reviews(.*)$ http://52.74.39.88:8080/reviews-api/api/service/reviews/$1 [P]",
+    "^/reviews-api/api/service/reviews/rating(.*)$ http://52.74.39.88:8080/reviews-api/api/service/reviews/rating/$1 [P]"
   ]
 }
