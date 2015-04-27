@@ -21,6 +21,7 @@ function setupHeaders(proxyReq, req) {
 
 function createProxy(options) {
   options = options || {};
+  console.log("Request received, routing to:",options.target);
   var proxy = httpProxy.createProxyServer(options);
 
   proxy.on('proxyReq', function(proxyReq, req, res, options) {
@@ -227,6 +228,3 @@ function _parse(rules) {
     };
   });
 }
-
-
-

@@ -9,7 +9,7 @@ var proxyOptions = require('./middleware/proxy/config.json');
 var rateLimitingOptions = require('./middleware/rate-limiting/config.json');
 var app = module.exports = loopback();
 var rateLimiting = require('./middleware/rate-limiting');
-
+// starting proxy server
 app.listen(3000);
 
 // Key Verification and quota
@@ -18,9 +18,10 @@ app.use(rateLimiting(rateLimitingOptions.quotaOptions));
 // Spike Arrest
 app.use(rateLimiting(rateLimitingOptions.spikeOptions));
 
+// routing to other server via proxy
 app.use(proxy(proxyOptions));
 
-console.log('Server running at http://127.0.0.1:3000/');
+console.log('API Gateway Server running at http://127.0.0.1:3000/');
 
 http.createServer(function(req, res) {
 	console.log('Inside index node.');
